@@ -15,7 +15,7 @@ class UserManager:
 
         uid = uuid.uuid1()
         usr = User(username, uid)
-        self.users[username] = usr
+        self.users[uid] = usr
         print (username, uid, sep=" - ")
         return uid
 

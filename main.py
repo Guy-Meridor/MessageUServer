@@ -22,7 +22,6 @@ if __name__ == '__main__':
     def read(conn, mask):
         data = conn.recv(MAX_LENGTH)  # Should be ready
         if data:
-
             name_length = len(data) - (REQUEST_HEADER_LENGTH)
             request_format = "<{}s B B I {}s".format(UID_LENGTH, name_length)
             client_id_bytes, version, action_code, payload_size, payload = struct.unpack(request_format, data)

@@ -4,10 +4,17 @@ class Actions(IntEnum):
     Register = 100,
     clients_list = 101,
     pkey = 3,
-    get_messages = 4,
+    get_messages = 104,
     send_message = 5,
     request_symetric_key = 51,
     send_symetric_key = 52
+
+class Response_Codes(IntEnum):
+    registration_success = 1000,
+    client_list_success = 1001,
+    waiting_messages_success = 1003,
+
+
 
 VERSION = 1
 MAX_LENGTH = 1024

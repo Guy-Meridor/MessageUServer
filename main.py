@@ -31,14 +31,24 @@ if __name__ == '__main__':
             if action_code == Actions.Register.value:
                 name = str(payload, 'utf-8')
                 uid = manager.add_user(name)
-                response = struct.pack(RESPONSE_FORMAT(UID_LENGTH), VERSION, 1000, UID_LENGTH, uid.bytes)
+                response = struct.pack(RESPONSE_FORMAT(UID_LENGTH), VERSION, Response_Codes.registration_success,
+                                       UID_LENGTH, uid.bytes)
                 conn.send(response)
             #
             elif action_code == Actions.clients_list.value:
                 packed_users = [user.pack() for user in manager.get_other_users(client_id)]
                 payload = b"".join(packed_users)
-                response = struct.pack(RESPONSE_FORMAT(len(payload)), VERSION, 1001, len(payload), payload)
+                response = struct.pack(RESPONSE_FORMAT(len(payload)), VERSION, Response_Codes.client_list_success,
+                                       len(payload), payload)
+                print(response)
                 conn.send(response)
+            elif action_code == Actions.get_messages.value:
+                packed_messages = [message.pack() for message in manager.get_user_messages(client_id)]
+                payload = b"".join(packed_messages)
+                response = struct.pack(RESPONSE_FORMAT(len(payload)), VERSION, Response_Codes.waiting_messages_success,
+                                       len(payload), payload)
+                conn.send(response)
+
         else:
             print('closing', conn)
             sel.unregister(conn)

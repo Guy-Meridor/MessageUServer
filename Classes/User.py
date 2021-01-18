@@ -17,3 +17,5 @@ class User:
         format = "{}s {}s".format(UID_LENGTH, USERNAME_MAX_LENGTH)
         return struct.pack(format, self.id.bytes, bytes(self.name.ljust(255, '\0'), 'utf-8'))
 
+    def pack_messages(self):
+        print("Hey")

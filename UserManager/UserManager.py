@@ -8,12 +8,21 @@ class UserManager:
         self.users = {}
 
         # for checks
-        self.add_user("YOS")
-        self.add_user("SHIRLY")
-        guyid = uuid.UUID("{7ab946a4-58e7-11eb-b5da-a434d938b306}")
-        guy = User("Guy", guyid)
-        self.users[guyid] = guy
-        self.receive_welcome_messages(guyid)
+        # self.add_user("YOS")
+        # self.add_user("SHIRLY")
+        #
+        #
+        # guyid = uuid.UUID("fd3401f1-5b44-11eb-be77-a434d938b306")
+        # guy = User("GuyM", guyid)
+        # self.users[guyid] = guy
+    #
+    #     muid = uuid.UUID("847bd5be-5b27-11eb-ae5c-a434d938b306")
+    #     m = User("M", muid)
+    #     self.users[muid] = m
+    #
+    #
+    #     self.receive_welcome_messages(guyid)
+    # #     end checks
 
     def add_user(self, username):
         if [user for user in self.users.values() if user.name == username]:
@@ -23,7 +32,7 @@ class UserManager:
         usr = User(username, uid)
         self.users[uid] = usr
 
-        print(username, uid, sep=" - ")
+        print(usr.id, usr.name, sep=" - ")
         return uid
 
     def send_message(self, sender_id, receiver_id, Type, size, content):
@@ -32,7 +41,11 @@ class UserManager:
         msg = Message(sender, Type, size, content)
         receiver.receiveMessage(msg)
 
+        print (sender.name, "sent ", msg.content, "to ", receiver.name)
+        return msg.id
+
     def get_other_users(self, client_id):
+        print([uid for uid in self.users])
         return [self.users[uid] for uid in self.users if uid != client_id]
 
     def get_user_messages(self, client_id):
